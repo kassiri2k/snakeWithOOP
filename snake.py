@@ -6,10 +6,12 @@ class Snake(object):
         self.x1=SCREEN_WIDTH/2
         self.y1=SCREEN_HEIGTH/2
         self.length =1
-        self.snake_list =[(self.x1,self.y1)]
-        self.direction ={"left":True,"down":True,"right":True,"up":True}
         self.snake_block = 20
         self.change = [0,0]
+        self.snake_rect_list= [pygame.Rect(self.x1,self.y1,self.snake_block,self.snake_block)]
+        self.snake_list =[(self.snake_rect_list[0].left,self.snake_rect_list[0].top)]
+        self.direction ={"left":True,"down":True,"right":True,"up":True}
+       
 
     def inc_length(self):
         self.length +=1
@@ -39,34 +41,43 @@ class Snake(object):
         self.change[0] = -self.snake_block
         self.change[1] =0
     def move_right(self):
-        self.change[0] = +self.snake_block
+        self.change[0] = self.snake_block
         self.change[1] =0
     def move_up(self):
         self.change[1] = -self.snake_block
         self.change[0] =0
     def move_down(self):
-        self.change[1] = +self.snake_block
+        self.change[1] = self.snake_block
         self.change[0] =0
     def move_loop(self):
         self.x1 +=self.change[0]
         self.y1 +=self.change[1]
-        self.reset()
+        self.snake_rect_list.append(pygame.Rect(self.x1,self.y1,self.snake_block,self.snake_block))
         self.snake_list.append((self.x1,self.y1))
+        if len(self.snake_list) > self.length:
+            del self.snake_list[0]
+            del self.snake_rect_list[0]
 
     
-    def update_snake(self):
-        self.snake_list.append((self.x1,self.y1))
-       # if len(self.snake_list)> self.length:
-    #        del snake_list[0]
+    def update_snake(self,food):
+        #self.snake_list.append((self.x1,self.y1))
+        r = pygame.Rect(food.left,food.top,self.snake_block,self.snake_block)
+        self.snake_rect_list.insert(0,r)
+        self.snake_list.insert(0, (r.left,r.top))
+        if len(self.snake_list)> self.length:
+            del snake_list[0]
 
     def reset(self):
         self.snake_list.clear()
-    def draw(self,surface):
-        for block in self.snake_list:
+    def draw(self,surface,screen):
+        #for block in self.snake_list:
+        
+        for rect in self.snake_rect_list:   
+           # r = pygame.Rect(block[0],block[1],self.snake_block,self.snake_block)
             
-            r = pygame.Rect(block[0],block[1],self.snake_block,self.snake_block)
-            
-            pygame.draw.rect(surface,"Black",r)
+        
+            #pygame.draw.rect(surface,"Black",r)
+            pygame.draw.rect(surface,"Black",rect)
             
     def handle_keys(self):
         for event in pygame.event.get():
@@ -76,10 +87,7 @@ class Snake(object):
             if event.type == pygame.KEYDOWN:
                 
                 if event.key == pygame.K_UP:
-                 
                     self.turn_up()
-                   
-
                 if event.key== pygame.K_DOWN:
                     self.turn_down()
                 if event.key== pygame.K_LEFT:
@@ -87,7 +95,12 @@ class Snake(object):
                 if event.key== pygame.K_RIGHT:
                     self.turn_right()
     def has_eaten_food(self,food):
-        pass
+        return self.snake_rect_list[0].colliderect(food)
+            
+
+    def you_lost(self):
+        bound = (self.snake_list[0])[0]> SCREEN_WIDTH or (self.snake_list[0])[0]> 0 or (self.snake_list[0])[0]> SCREEN_HEIGTH or (self.snake_list[0])[0]< 0
+        return bound
 
 
 

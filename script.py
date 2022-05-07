@@ -30,18 +30,22 @@ def main():
         clock.tick(10)
         #events
        
-        screen.blit(surface,(0,0))
+       
+        
 
         
-        
+        screen.blit(surface,(0,0))
         food.draw(surface)
-      
-       
         snake.draw(surface)
+        
+        
         snake.move_loop()
+        
        
         snake.handle_keys()
-
+      
+      
+        
         
         pygame.display.update()
 
