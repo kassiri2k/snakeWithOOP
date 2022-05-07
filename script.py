@@ -29,7 +29,7 @@ def main():
     while True:
         clock.tick(10)
         #events
-        
+       
         screen.blit(surface,(0,0))
 
         
@@ -39,7 +39,7 @@ def main():
        
         snake.draw(surface)
         snake.move_loop()
-        print(snake.x1,snake.y1)
+       
         snake.handle_keys()
 
         

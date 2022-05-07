@@ -7,9 +7,14 @@ class Snake(object):
         self.y1=SCREEN_HEIGTH/2
         self.length =1
         self.snake_list =[(self.x1,self.y1)]
-        self.direction ={"left":False,"down":False,"right":False,"up":False}
+        self.direction ={"left":True,"down":True,"right":True,"up":True}
         self.snake_block = 20
         self.change = [0,0]
+
+    def inc_length(self):
+        self.length +=1
+
+
     def get_head_positon(self):
         return snake_list[0]
         # return True if the snake it in the vertical position and update the position
@@ -45,6 +50,8 @@ class Snake(object):
     def move_loop(self):
         self.x1 +=self.change[0]
         self.y1 +=self.change[1]
+        self.reset()
+        self.snake_list.append((self.x1,self.y1))
 
     
     def update_snake(self):
@@ -53,11 +60,12 @@ class Snake(object):
     #        del snake_list[0]
 
     def reset(self):
-        pass
+        self.snake_list.clear()
     def draw(self,surface):
         for block in self.snake_list:
             
             r = pygame.Rect(block[0],block[1],self.snake_block,self.snake_block)
+            
             pygame.draw.rect(surface,"Black",r)
             
     def handle_keys(self):
@@ -69,15 +77,17 @@ class Snake(object):
                 
                 if event.key == pygame.K_UP:
                  
-                    self.move_up()
+                    self.turn_up()
                    
 
                 if event.key== pygame.K_DOWN:
-                    self.move_down()
+                    self.turn_down()
                 if event.key== pygame.K_LEFT:
-                    self.move_left()
+                    self.turn_left()
                 if event.key== pygame.K_RIGHT:
-                    self.move_right()
+                    self.turn_right()
+    def has_eaten_food(self,food):
+        pass
 
 
 
