@@ -57,6 +57,7 @@ class Snake(object):
         self.y1 +=self.change[1]
         self.snake_rect_list.append(pygame.Rect(self.x1,self.y1,self.snake_block,self.snake_block))
         self.snake_list.append((self.x1,self.y1))
+        print(len(self.snake_rect_list))
         if len(self.snake_list) or len(self.snake_rect_list)  > self.length:
             del self.snake_list[0]
             del self.snake_rect_list[0]

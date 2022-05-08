@@ -39,6 +39,8 @@ def main():
         food.draw(surface)
         
         snake.draw(screen)
+        print(len(snake.snake_rect_list))
+        sys.exit()
         
         
         snake.move_loop()
