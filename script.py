@@ -16,9 +16,9 @@ GRIDSIZE =20
 def main():
     pygame.init()
     clock = pygame.time.Clock()
-    global screen 
     screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGTH))
     surface = pygame.Surface(screen.get_size())
+    surface.convert()
     b = Board(SCREEN_WIDTH,SCREEN_HEIGTH,GRIDSIZE)
     b.draw_grid(surface,SCREEN_WIDTH,SCREEN_HEIGTH,GRIDSIZE)
 
@@ -35,8 +35,10 @@ def main():
 
         
         screen.blit(surface,(0,0))
+        
         food.draw(surface)
-        snake.draw(surface)
+        
+        snake.draw(screen)
         
         
         snake.move_loop()

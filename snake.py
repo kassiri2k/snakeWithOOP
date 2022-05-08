@@ -19,6 +19,7 @@ class Snake(object):
 
     def get_head_positon(self):
         return snake_list[0]
+
         # return True if the snake it in the vertical position and update the position
     def turn_left(self):
         if self.direction["up"] or self.direction["down"]:
@@ -49,27 +50,34 @@ class Snake(object):
     def move_down(self):
         self.change[1] = self.snake_block
         self.change[0] =0
+
+        #this function makes the snake moving continuously
     def move_loop(self):
         self.x1 +=self.change[0]
         self.y1 +=self.change[1]
         self.snake_rect_list.append(pygame.Rect(self.x1,self.y1,self.snake_block,self.snake_block))
         self.snake_list.append((self.x1,self.y1))
-        if len(self.snake_list) > self.length:
+        if len(self.snake_list) or len(self.snake_rect_list)  > self.length:
             del self.snake_list[0]
             del self.snake_rect_list[0]
 
     
+    #this function updates the snake when he eats the food
     def update_snake(self,food):
         #self.snake_list.append((self.x1,self.y1))
+        self.inc_length()
         r = pygame.Rect(food.left,food.top,self.snake_block,self.snake_block)
-        self.snake_rect_list.insert(0,r)
-        self.snake_list.insert(0, (r.left,r.top))
+        self.snake_rect_list.append(r)
+        #self.snake_rect_list.insert(0,r)
+        #self.snake_list.insert(0, (r.left,r.top))
+        self.snake_list.append((r.left,r.top))
         if len(self.snake_list)> self.length:
             del snake_list[0]
 
     def reset(self):
         self.snake_list.clear()
-    def draw(self,surface,screen):
+
+    def draw(self,screen):
         #for block in self.snake_list:
         
         for rect in self.snake_rect_list:   
@@ -77,7 +85,8 @@ class Snake(object):
             
         
             #pygame.draw.rect(surface,"Black",r)
-            pygame.draw.rect(surface,"Black",rect)
+            pygame.draw.rect(screen,"Blue",rect)
+            
             
     def handle_keys(self):
         for event in pygame.event.get():
