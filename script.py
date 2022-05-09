@@ -24,31 +24,37 @@ def main():
 
     snake = Snake(SCREEN_WIDTH,SCREEN_HEIGTH)
     food = Food(b,snake)
-    
+    start =True
   
     while True:
         clock.tick(10)
         #events
-       
+      
        
         
 
         
         screen.blit(surface,(0,0))
         
-        food.draw(surface)
-        
-        snake.draw(screen)
-        print(len(snake.snake_rect_list))
-        sys.exit()
-        
-        
         snake.move_loop()
+        snake.draw(screen)
+        if start:
+            food.draw(screen,snake)
+            start=False
+            
+        
+        #for i in snake.snake_rect_list:
+         #   if i.colliderect(food.r):
+          #      food.draw(screen,snake)
+                
+     
+        
         
        
         snake.handle_keys()
       
-      
+       
+        
         
         
         pygame.display.update()

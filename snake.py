@@ -34,7 +34,7 @@ class Snake(object):
             self.direction.update({"left":False,"down":False,"right":True,"up":False})
             self.move_right()
     def turn_up(self):
-        if self.direction["right"] or self.direction["right"]:
+        if self.direction["right"] or self.direction["left"]:
             self.direction.update({"left":False,"down":False,"right":False,"up":True})
             self.move_up()
             
@@ -57,17 +57,19 @@ class Snake(object):
         self.y1 +=self.change[1]
         self.snake_rect_list.append(pygame.Rect(self.x1,self.y1,self.snake_block,self.snake_block))
         self.snake_list.append((self.x1,self.y1))
-        print(len(self.snake_rect_list))
-        if len(self.snake_list) or len(self.snake_rect_list)  > self.length:
+        
+        #print(len(self.snake_rect_list))
+        if len(self.snake_list)> self.length or len(self.snake_rect_list)  > self.length:
             del self.snake_list[0]
             del self.snake_rect_list[0]
+            
 
     
     #this function updates the snake when he eats the food
     def update_snake(self,food):
         #self.snake_list.append((self.x1,self.y1))
         self.inc_length()
-        r = pygame.Rect(food.left,food.top,self.snake_block,self.snake_block)
+        r = pygame.Rect(food.r.left,food.r.top,self.snake_block,self.snake_block)
         self.snake_rect_list.append(r)
         #self.snake_rect_list.insert(0,r)
         #self.snake_list.insert(0, (r.left,r.top))
@@ -105,7 +107,7 @@ class Snake(object):
                 if event.key== pygame.K_RIGHT:
                     self.turn_right()
     def has_eaten_food(self,food):
-        return self.snake_rect_list[0].colliderect(food)
+        return self.snake_rect_list[0].colliderect(food.r)
             
 
     def you_lost(self):
