@@ -35,20 +35,15 @@ def main():
 
         
         screen.blit(surface,(0,0))
+      
         
         snake.move_loop()
         snake.draw(screen)
-        if start:
-            food.draw(screen,snake)
-            start=False
-            
+        food.draw(screen,snake)
         
-        #for i in snake.snake_rect_list:
-         #   if i.colliderect(food.r):
-          #      food.draw(screen,snake)
-                
+       
      
-        
+    
         
        
         snake.handle_keys()
