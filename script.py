@@ -47,7 +47,9 @@ def main():
         
        
         snake.handle_keys()
-      
+        
+        snake.update_snake(food,screen)
+        
        
         
         

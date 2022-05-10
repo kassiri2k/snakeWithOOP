@@ -11,14 +11,17 @@ class Snake(object):
         self.snake_rect_list= [pygame.Rect(self.x1,self.y1,self.snake_block,self.snake_block)]
         self.snake_list =[(self.snake_rect_list[0].left,self.snake_rect_list[0].top)]
         self.direction ={"left":True,"down":True,"right":True,"up":True}
-       
+        
 
     def inc_length(self):
         self.length +=1
 
 
     def get_head_positon(self):
-        return snake_list[0]
+        return self.snake_list[0]
+    
+    def get_head(self):
+        return self.snake_rect_list[0]
 
         # return True if the snake it in the vertical position and update the position
     def turn_left(self):
@@ -66,19 +69,27 @@ class Snake(object):
 
     
     #this function updates the snake when he eats the food
-    def update_snake(self,food):
+    def update_snake(self,food,screen):
         #self.snake_list.append((self.x1,self.y1))
-        self.inc_length()
-        r = pygame.Rect(food.r.left,food.r.top,self.snake_block,self.snake_block)
-        self.snake_rect_list.append(r)
-        #self.snake_rect_list.insert(0,r)
-        #self.snake_list.insert(0, (r.left,r.top))
-        self.snake_list.append((r.left,r.top))
-        if len(self.snake_list)> self.length:
-            del snake_list[0]
+       
+        
+        if food.cube.colliderect(self.snake_rect_list[0]):
+        
+            print("yes")
+            self.inc_length()
+            r = pygame.Rect(food.cube.left,food.cube.top,self.snake_block,self.snake_block)
+            self.snake_rect_list.append(r)
+            self.snake_list.append((r.left,r.top))
+        #print(type(food.cube))
+        #print(type(self.snake_rect_list[0]))
+      
+
+       # if len(self.snake_list)> self.length:
+        #    del snake_list[0]
 
     def reset(self):
         self.snake_list.clear()
+    
 
     def draw(self,screen):
         #for block in self.snake_list:

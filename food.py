@@ -9,7 +9,7 @@ class Food(object):
         # coordinates of the food
         self.x1 = (self.foodxy[random.randint(0,len(self.foodxy)-1)])[0]
         self.y1 = (self.foodxy[random.randint(0,len(self.foodxy)-1)])[1]
-        self.r = pygame.Rect(self.x1,self.y1,self.food_size,self.food_size) # the food       
+        #self.r = pygame.Rect(self.x1,self.y1,self.food_size,self.food_size) # the food       
         self.cube = pygame.Rect(self.x1,self.y1,self.food_size,self.food_size) # the food       
         
 
@@ -36,9 +36,13 @@ class Food(object):
     def draw(self,screen,snake):
         self.cube = pygame.Rect(self.x1,self.y1,self.food_size,self.food_size) # the food
         while self.cube.colliderect(snake.snake_rect_list[0]):
+       
+    
             self.randomize()
             self.cube = pygame.Rect(self.x1,self.y1,self.food_size,self.food_size) # the food
-        pygame.draw.rect(screen,"Orange",self.cube)
+        pygame.draw.rect(screen,"Red",self.cube)
+
+   
        
         
     
