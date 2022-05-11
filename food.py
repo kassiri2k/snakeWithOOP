@@ -27,6 +27,7 @@ class Food(object):
     def randomize(self):
         self.x1 = (self.foodxy[random.randint(0,len(self.foodxy)-1)])[0]
         self.y1 = (self.foodxy[random.randint(0,len(self.foodxy)-1)])[1]
+        
 
     # draw the food  after check if there is no part of the snake at that position        
     #def draw(self,screen,snake):
@@ -35,11 +36,11 @@ class Food(object):
 
     def draw(self,screen,snake):
         self.cube = pygame.Rect(self.x1,self.y1,self.food_size,self.food_size) # the food
-        while self.cube.colliderect(snake.snake_rect_list[0]):
+        #while self.cube.colliderect(snake.snake_rect_list[0]):
        
     
-            self.randomize()
-            self.cube = pygame.Rect(self.x1,self.y1,self.food_size,self.food_size) # the food
+        #self.randomize()
+          #  self.cube = pygame.Rect(self.x1,self.y1,self.food_size,self.food_size) # the food
         pygame.draw.rect(screen,"Red",self.cube)
 
    

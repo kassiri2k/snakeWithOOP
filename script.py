@@ -40,6 +40,16 @@ def main():
         snake.move_loop()
         snake.draw(screen)
         food.draw(screen,snake)
+        if food.cube.colliderect(snake.snake_rect_list[-1]):
+            
+            
+            
+            food.randomize()
+            food.draw(screen,snake)
+            snake.update(food)
+            #snake.update_snake(food, screen)
+            #print(snake.length)
+            
         
        
      
@@ -48,7 +58,7 @@ def main():
        
         snake.handle_keys()
         
-        snake.update_snake(food,screen)
+        
         
        
         

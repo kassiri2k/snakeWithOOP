@@ -11,6 +11,8 @@ class Snake(object):
         self.snake_rect_list= [pygame.Rect(self.x1,self.y1,self.snake_block,self.snake_block)]
         self.snake_list =[(self.snake_rect_list[0].left,self.snake_rect_list[0].top)]
         self.direction ={"left":True,"down":True,"right":True,"up":True}
+        self.ret= [pygame.Rect(self.x1,self.y1,self.snake_block,self.snake_block)]
+        self.xy =[(self.snake_rect_list[0].left,self.snake_rect_list[0].top)]
         
 
     def inc_length(self):
@@ -73,19 +75,19 @@ class Snake(object):
         #self.snake_list.append((self.x1,self.y1))
        
         
-        if food.cube.colliderect(self.snake_rect_list[0]):
+        #if food.cube.colliderect(self.snake_rect_list[0]):
         
-            print("yes")
-            self.inc_length()
-            r = pygame.Rect(food.cube.left,food.cube.top,self.snake_block,self.snake_block)
-            self.snake_rect_list.append(r)
-            self.snake_list.append((r.left,r.top))
+           
+        self.inc_length()
+        r = pygame.Rect(food.cube.left,food.cube.top,self.snake_block,self.snake_block)
+        self.snake_rect_list.append(r)
+        self.snake_list.append((r.left,r.top))
         #print(type(food.cube))
         #print(type(self.snake_rect_list[0]))
       
 
-       # if len(self.snake_list)> self.length:
-        #    del snake_list[0]
+        if len(self.snake_list)> self.length:
+            del snake_list[0]
 
     def reset(self):
         self.snake_list.clear()
@@ -117,8 +119,13 @@ class Snake(object):
                     self.turn_left()
                 if event.key== pygame.K_RIGHT:
                     self.turn_right()
-    def has_eaten_food(self,food):
-        return self.snake_rect_list[0].colliderect(food.r)
+    def update(self,food):
+        r = pygame.Rect(food.cube.left,food.cube.top,self.snake_block,self.snake_block)
+        self.ret.append(r)
+        self.xy.append((food.cube.left,food.cube.top))
+        self.inc_length()
+        
+        
             
 
     def you_lost(self):
